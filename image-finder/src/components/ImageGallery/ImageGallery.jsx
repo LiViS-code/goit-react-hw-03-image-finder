@@ -6,13 +6,21 @@ import { GalleryList } from "./ImageGallery.styled";
 class ImageGallery extends Component {
   static propTypes = {
     request: PropTypes.string.isRequired,
+    page: PropTypes.number.isRequired,
+    updStatePicture: PropTypes.func.isRequired,
   };
 
   render() {
-    const { request } = this.props;
+    const { request, page, updStatePicture } = this.props;
     return (
       <GalleryList>
-        <ImageGalleryItem request={request} />
+        {/* {request && ( */}
+        <ImageGalleryItem
+          request={request}
+          page={page}
+          updStatePicture={updStatePicture}
+        />
+        {/* )} */}
       </GalleryList>
     );
   }

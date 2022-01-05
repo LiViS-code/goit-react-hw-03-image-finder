@@ -6,41 +6,53 @@ import toastMsg from "../../utils/toastMsg";
 class ImageGalleryItem extends Component {
   static propTypes = {
     request: PropTypes.string.isRequired,
+    page: PropTypes.number.isRequired,
+    updStatePicture: PropTypes.func.isRequired,
   };
 
   state = {
     pictures: [],
   };
 
-  componentDidUpdate(prevProps) {
-    const { request } = this.props;
+  componentDidMount() {
+    console.log("элемент ImageGalleryItem смонтирован");
+  }
 
-    if (prevProps.request !== request) {
-      getPictures(request).then((pic) => {
-        this.setState({ pictures: pic.hits });
-        toastMsg(`${pic.total} images found`, "info");
-      });
+  componentDidUpdate(prevProps) {
+    const { request, page, updStatePicture } = this.props;
+    console.log("prop", request);
+
+    if (prevProps.request !== request || prevProps.page !== page) {
+      getPictures(request, page)
+        .then((pic) => {
+          this.setState({ pictures: pic.hits });
+          toastMsg(`${pic.total} images found`, "info");
+          updStatePicture(pic.hits);
+          // опеределить количество страниц
+        })
+        // .finally()
+        .catch((error) => toastMsg(`Ошибка: ${error}`));
       return;
     }
-    console.log("no change request");
+    // toastMsg(
+    //   `The result of the query ${request.toUpperCase()} is already on the screen`,
+    //   "info"
+    // );
   }
 
   render() {
     const { pictures } = this.state;
     return (
       <>
-        {pictures.map(
-          ({ id, largeImageURL, webformatURL, webformatWidth, tags }) => (
-            <GalleryItem key={id}>
-              <GalleryItemImage
-                src={webformatURL}
-                alt={tags}
-                data-large={largeImageURL}
-                width={webformatWidth}
-              />
-            </GalleryItem>
-          )
-        )}
+        {pictures.map(({ id, largeImageURL, webformatURL, tags }) => (
+          <GalleryItem key={id}>
+            <GalleryItemImage
+              src={webformatURL}
+              alt={tags}
+              data-large={largeImageURL}
+            />
+          </GalleryItem>
+        ))}
       </>
     );
   }
