@@ -9,7 +9,6 @@ class Button extends Component {
 
   handleClick = () => {
     this.props.incrementPage();
-    console.log("call incrementPage");
   };
 
   render() {
