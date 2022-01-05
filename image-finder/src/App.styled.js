@@ -12,7 +12,7 @@ export const Container = styled.div`
   grid-template-columns: 1fr;
   grid-gap: ${spacing(4)};
   margin: 0 auto;
-  padding: ${spacing(5)};
+  padding: 0;
   font-family: ${family};
   font-size: ${size};
   line-height: ${lh};
