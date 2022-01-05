@@ -5,10 +5,13 @@ import Searchbar from "./components/Searchbar/Searchbar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Button from "./components/Button/Button";
 class App extends Component {
+  perPage = 12;
+
   state = {
     request: "",
     pictures: [],
     page: 1,
+    maxPageCount: 1,
   };
 
   handleSubmit = (request) => {
@@ -16,8 +19,9 @@ class App extends Component {
     this.resetPage();
   };
 
-  updStatePicture = (pictures) => {
+  updStatePicture = (pictures, total) => {
     this.setState({ pictures });
+    this.setState({ maxPageCount: Math.ceil(total / this.perPage) });
   };
 
   resetPage = () => {
@@ -25,7 +29,11 @@ class App extends Component {
   };
 
   incrementPage = () => {
-    this.setState({ page: this.state.page + 1 });
+    const nextPage = this.state.page + 1;
+    if (nextPage <= this.state.maxPageCount) {
+      this.setState({ page: nextPage });
+      return;
+    }
   };
 
   render() {
@@ -33,9 +41,10 @@ class App extends Component {
       handleSubmit,
       updStatePicture,
       incrementPage,
-      state: { request, page, pictures },
+      state: { request, page, pictures, maxPageCount },
     } = this;
-    const isBtnShown = pictures.length > 0 ? true : false;
+    const isBtnShown =
+      (pictures.length && page < maxPageCount) > 0 ? true : false;
 
     return (
       <>
