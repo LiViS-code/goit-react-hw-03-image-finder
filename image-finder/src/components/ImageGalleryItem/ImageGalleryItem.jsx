@@ -14,30 +14,59 @@ class ImageGalleryItem extends Component {
     pictures: [],
   };
 
-  componentDidMount() {
-    console.log("элемент ImageGalleryItem смонтирован");
-  }
+  // componentDidMount() {
+  //   console.log("элемент ImageGalleryItem смонтирован");
+  // }
 
   componentDidUpdate(prevProps) {
     const { request, page, updStatePicture } = this.props;
-    console.log("prop", request);
 
     if (prevProps.request !== request || prevProps.page !== page) {
       getPictures(request, page)
         .then((pic) => {
-          this.setState({ pictures: pic.hits });
-          toastMsg(`${pic.total} images found`, "info");
-          updStatePicture(pic.hits);
-          // опеределить количество страниц
+          if (prevProps.request === request) {
+            this.setState((state) => {
+              return { pictures: state.pictures.concat(pic.hits) };
+            });
+          } else {
+            this.setState({ pictures: pic.hits });
+          }
+
+          this.serviceMessage(
+            page,
+            pic.total,
+            this.state.pictures.length,
+            request
+          );
+
+          updStatePicture(this.state.pictures, pic.total);
         })
         // .finally()
         .catch((error) => toastMsg(`Ошибка: ${error}`));
       return;
     }
+
     // toastMsg(
     //   `The result of the query ${request.toUpperCase()} is already on the screen`,
     //   "info"
     // );
+  }
+
+  serviceMessage(page, total, count, request) {
+    if (page === 1) {
+      toastMsg(`${total} "${request.toUpperCase()}" images found`, "info");
+    } else {
+      toastMsg(
+        `Uploaded ${count} of ${total} "${request.toUpperCase()}" images`,
+        "info"
+      );
+    }
+
+    if (count === total) {
+      setTimeout(() => {
+        toastMsg(`No more images of "${request.toUpperCase()}" found`, "info");
+      }, 1000);
+    }
   }
 
   render() {
