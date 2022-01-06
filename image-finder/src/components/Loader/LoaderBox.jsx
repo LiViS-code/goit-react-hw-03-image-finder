@@ -1,0 +1,30 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { Container, Wrapper } from "./LoaderBox.styled";
+
+export default class LoaderBox extends Component {
+  static propTypes = {
+    loading: PropTypes.bool.isRequired,
+  };
+
+  render() {
+    const { loading } = this.props;
+
+    return (
+      <Container>
+        <Wrapper>
+          <Loader
+            type="ThreeDots"
+            color="#3f51b5"
+            height={100}
+            width={150}
+            timeout={3000}
+            visible={loading}
+          />
+        </Wrapper>
+      </Container>
+    );
+  }
+}

@@ -29,3 +29,9 @@ export const Title = styled.h1`
   margin: 0;
   font-size: 1.8em;
 `;
+
+export const NotFound = styled.img`
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+`;

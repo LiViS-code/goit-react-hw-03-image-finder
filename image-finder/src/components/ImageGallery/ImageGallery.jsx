@@ -8,19 +8,23 @@ class ImageGallery extends Component {
     request: PropTypes.string.isRequired,
     page: PropTypes.number.isRequired,
     updStatePicture: PropTypes.func.isRequired,
+    isShownLoading: PropTypes.func.isRequired,
+    handleError: PropTypes.func.isRequired,
   };
 
   render() {
-    const { request, page, updStatePicture } = this.props;
+    const { request, page, updStatePicture, isShownLoading, handleError } =
+      this.props;
+
     return (
       <GalleryList>
-        {/* {request && ( */}
         <ImageGalleryItem
           request={request}
           page={page}
           updStatePicture={updStatePicture}
+          isShownLoading={isShownLoading}
+          handleError={handleError}
         />
-        {/* )} */}
       </GalleryList>
     );
   }
