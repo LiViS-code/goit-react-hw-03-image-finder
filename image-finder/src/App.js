@@ -6,6 +6,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Button from "./components/Button/Button";
 import LoaderBox from "./components/Loader/LoaderBox";
 import notFound from "./img/notfound.png";
+import Modal from "./components/Modal/Modal";
 class App extends Component {
   perPage = 12;
 
@@ -16,6 +17,8 @@ class App extends Component {
     maxPageCount: 1,
     loading: false,
     error: "",
+    ShownModal: false,
+    largePictureSRC: "",
   };
 
   handleSubmit = (request) => {
@@ -28,8 +31,7 @@ class App extends Component {
   };
 
   updStatePicture = (pictures, total) => {
-    this.setState({ pictures });
-    this.setState({ maxPageCount: Math.ceil(total / this.perPage) });
+    this.setState({ pictures, maxPageCount: Math.ceil(total / this.perPage) });
   };
 
   resetPage = () => {
@@ -52,6 +54,17 @@ class App extends Component {
     this.setState({ error });
   };
 
+  onModal = (src) => {
+    this.setState({ ShownModal: true, largePictureSRC: src });
+    console.log("largePictureSRC:", src);
+  };
+
+  closeModal = (ShownModal) => {
+    if (!ShownModal) {
+      this.setState({ ShownModal });
+    }
+  };
+
   render() {
     const {
       handleSubmit,
@@ -59,7 +72,18 @@ class App extends Component {
       incrementPage,
       isShownLoading,
       handleError,
-      state: { request, page, pictures, maxPageCount, loading, error },
+      onModal,
+      closeModal,
+      state: {
+        request,
+        page,
+        pictures,
+        maxPageCount,
+        loading,
+        error,
+        ShownModal,
+        largePictureSRC,
+      },
     } = this;
     const isBtnShown = pictures.length && page < maxPageCount ? true : false;
 
@@ -80,8 +104,11 @@ class App extends Component {
             updStatePicture={updStatePicture}
             isShownLoading={isShownLoading}
             handleError={handleError}
+            onModal={onModal}
           />
-
+          {ShownModal && (
+            <Modal largePictureSRC={largePictureSRC} closeModal={closeModal} />
+          )}
           {loading && <LoaderBox loading={loading} />}
         </Container>
 

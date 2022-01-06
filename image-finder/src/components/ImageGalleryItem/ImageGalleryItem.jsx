@@ -85,8 +85,7 @@ class ImageGalleryItem extends Component {
   };
 
   handleError = (error) => {
-    this.setState({ error });
-    this.setState({ pictures: [] });
+    this.setState({ error, pictures: [] });
     this.props.updStatePicture([], 0);
     this.props.handleError(error);
     this.serviceMessage();

@@ -10,6 +10,12 @@ class ImageGallery extends Component {
     updStatePicture: PropTypes.func.isRequired,
     isShownLoading: PropTypes.func.isRequired,
     handleError: PropTypes.func.isRequired,
+    onModal: PropTypes.func.isRequired,
+  };
+
+  handleClick = (e) => {
+    if (!e.target.dataset.large) return;
+    this.props.onModal(e.target.dataset.large);
   };
 
   render() {
@@ -17,7 +23,7 @@ class ImageGallery extends Component {
       this.props;
 
     return (
-      <GalleryList>
+      <GalleryList onClick={this.handleClick}>
         <ImageGalleryItem
           request={request}
           page={page}

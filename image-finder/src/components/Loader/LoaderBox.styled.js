@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../constants/Theme";
 
 const {
-  colors: { backgroundColorLoaderContainer },
+  colors: { backgroundColorBackdrop },
 } = theme;
 
 export const Container = styled.div`
@@ -12,7 +12,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   z-index: 6;
-  background-color: ${backgroundColorLoaderContainer};
+  background-color: ${backgroundColorBackdrop};
 `;
 
 export const Wrapper = styled.div`
