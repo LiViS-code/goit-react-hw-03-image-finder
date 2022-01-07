@@ -16,10 +16,12 @@ export const Backdrop = styled.div`
 `;
 
 export const Picture = styled.img`
-  display: block;
-  margin: 0 auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   width: auto;
   height: auto;
   max-height: 100vh;
   max-width: 100vw;
+  transform: translate3d(-50%, -50%, 0);
 `;
