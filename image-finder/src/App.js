@@ -81,14 +81,16 @@ class App extends Component {
       perPage,
     } = this;
     const refGalleryItem = document.querySelectorAll("img[data-large]");
+
     if (pictures.length > perPage) {
-      console.log("> 12");
       refGalleryItem[refGalleryItem.length - perPage].scrollIntoView({
-        block: "center",
+        block: "start",
         behavior: "smooth",
       });
+
+      //move it down 100 pixels because top header sticker overlaps
+      window.scrollBy(0, -100);
     }
-    console.log("<= 12");
   };
 
   render() {
