@@ -68,7 +68,6 @@ class App extends Component {
     const { pictures } = this.state;
 
     if (prevState.pictures.length < pictures.length) {
-      console.log("current length:", pictures.length);
       this.scrollImage();
     }
   };

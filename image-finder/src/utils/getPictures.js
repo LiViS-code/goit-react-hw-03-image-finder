@@ -5,7 +5,10 @@ const getPictures = async (request, page = 1, perPage = 12) => {
 
   const response = await fetch(URL);
 
-  return response.json();
+  if (response.ok) return response.json();
+  return Promise.reject(
+    new Error(`Search error. No results were found for ${request}.`)
+  );
 };
 
 export default getPictures;

@@ -14,8 +14,8 @@ export default class Modal extends Component {
     src: "",
   };
 
-  handleClick = () => {
-    this.props.closeModal(true);
+  handleClick = (e) => {
+    if (e.target.tagName === "DIV") return this.props.closeModal(true);
   };
 
   componentDidMount() {

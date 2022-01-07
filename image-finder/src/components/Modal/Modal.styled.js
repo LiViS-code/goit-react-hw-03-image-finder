@@ -16,8 +16,10 @@ export const Backdrop = styled.div`
 `;
 
 export const Picture = styled.img`
-  object-position: center center;
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  height: auto;
+  max-height: 100vh;
+  max-width: 100vw;
 `;

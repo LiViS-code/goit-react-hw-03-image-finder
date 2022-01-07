@@ -22,6 +22,7 @@ class ImageGalleryItem extends Component {
 
     if (prevProps.request !== request || prevProps.page !== page) {
       isShownLoading(true);
+
       getPictures(request, page)
         .then((pic) => {
           if (pic.total === 0) {
