@@ -56,7 +56,6 @@ class App extends Component {
 
   onModal = (src) => {
     this.setState({ ShownModal: true, largePictureSRC: src });
-    console.log("largePictureSRC:", src);
   };
 
   closeModal = (ShownModal) => {

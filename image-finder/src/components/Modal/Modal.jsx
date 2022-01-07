@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Backdrop, Picture } from "./Modal.styled";
+import LoaderBox from "../Loader/LoaderBox";
 
 export default class Modal extends Component {
   static propTypes = {
     largePictureSRC: PropTypes.string.isRequired,
     closeModal: PropTypes.func.isRequired,
+  };
+
+  state = {
+    shownLoad: true,
+    src: "",
   };
 
   handleClick = () => {
@@ -14,6 +20,19 @@ export default class Modal extends Component {
 
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction);
+    this.setState({ src: this.props.largePictureSRC });
+  }
+
+  componentDidUpdate(_, prevState) {
+    console.log("prevState", prevState);
+    if (prevState.src !== this.state.src) {
+      console.log("не равны");
+      setTimeout(() => {
+        this.setState({ shownLoad: false });
+      }, 1000);
+      return;
+    }
+    console.log("равны");
   }
 
   componentWillUnmount() {
@@ -27,11 +46,15 @@ export default class Modal extends Component {
   };
 
   render() {
-    const { handleClick } = this;
-    const { largePictureSRC } = this.props;
+    const {
+      handleClick,
+      state: { shownLoad, src },
+    } = this;
+
     return (
       <Backdrop onClick={handleClick}>
-        <Picture src={largePictureSRC} width="100%" />
+        {shownLoad && <LoaderBox loading={shownLoad} />}
+        <Picture src={src} width="100%" />
       </Backdrop>
     );
   }
