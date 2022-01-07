@@ -52,14 +52,7 @@ class ImageGalleryItem extends Component {
         .finally(() => {
           isShownLoading(false);
         });
-
-      return;
     }
-
-    // toastMsg(
-    //   `The result of the query ${request.toUpperCase()} is already on the screen`,
-    //   "info"
-    // );
   }
 
   serviceMessage = (page, total, count, request) => {

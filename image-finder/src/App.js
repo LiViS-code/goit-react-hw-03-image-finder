@@ -59,9 +59,36 @@ class App extends Component {
   };
 
   closeModal = (ShownModal) => {
-    if (!ShownModal) {
-      this.setState({ ShownModal });
+    if (ShownModal) {
+      this.setState({ ShownModal: !ShownModal });
     }
+  };
+
+  componentDidUpdate = (_, prevState) => {
+    const { pictures } = this.state;
+    // console.log("prevState", pictures.length);
+    // console.log("State", this.state.pictures.length);
+
+    if (prevState.pictures.length < pictures.length) {
+      console.log("current length:", pictures.length);
+      this.scrollImage();
+    }
+  };
+
+  scrollImage = () => {
+    const {
+      state: { pictures },
+      perPage,
+    } = this;
+    const refGalleryItem = document.querySelectorAll("img[data-large]");
+    if (pictures.length > perPage) {
+      console.log("> 12");
+      refGalleryItem[refGalleryItem.length - perPage].scrollIntoView({
+        block: "center",
+        behavior: "smooth",
+      });
+    }
+    console.log("<= 12");
   };
 
   render() {

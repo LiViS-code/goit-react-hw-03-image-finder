@@ -15,7 +15,7 @@ export default class Modal extends Component {
   };
 
   handleClick = () => {
-    this.props.closeModal(false);
+    this.props.closeModal(true);
   };
 
   componentDidMount() {
@@ -24,15 +24,12 @@ export default class Modal extends Component {
   }
 
   componentDidUpdate(_, prevState) {
-    console.log("prevState", prevState);
     if (prevState.src !== this.state.src) {
-      console.log("не равны");
       setTimeout(() => {
         this.setState({ shownLoad: false });
-      }, 1000);
+      }, 300);
       return;
     }
-    console.log("равны");
   }
 
   componentWillUnmount() {
@@ -41,7 +38,7 @@ export default class Modal extends Component {
 
   escFunction = (e) => {
     if (e.keyCode === 27) {
-      this.props.closeModal(false);
+      this.props.closeModal(true);
     }
   };
 
