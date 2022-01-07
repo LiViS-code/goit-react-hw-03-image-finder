@@ -66,8 +66,6 @@ class App extends Component {
 
   componentDidUpdate = (_, prevState) => {
     const { pictures } = this.state;
-    // console.log("prevState", pictures.length);
-    // console.log("State", this.state.pictures.length);
 
     if (prevState.pictures.length < pictures.length) {
       console.log("current length:", pictures.length);
@@ -88,7 +86,7 @@ class App extends Component {
         behavior: "smooth",
       });
 
-      //move it down 100 pixels because top header sticker overlaps
+      // move it down 100 pixels because top header sticker overlaps
       window.scrollBy(0, -100);
     }
   };
