@@ -57,11 +57,14 @@ class ImageGalleryItem extends Component {
   }
 
   serviceMessage = (page, total, count, request) => {
-    if (this.state.error) {
-      toastMsg(`Error: ${this.state.error}`, "error");
+    const { error } = this.state;
+
+    if (error) {
+      toastMsg(`Error: ${error}`, "error");
       this.setState({ error: "" });
       return;
     }
+
     if (page === 1) {
       toastMsg(`${total} "${request.toUpperCase()}" images found`, "success");
     } else {

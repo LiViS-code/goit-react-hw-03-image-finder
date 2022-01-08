@@ -23,19 +23,14 @@ class App extends Component {
 
   handleSubmit = (request) => {
     if (this.state.error) {
-      this.setState({ error: "" });
+      this.setState({ error: "", request, page: 1 });
+    } else {
+      this.setState({ request, page: 1 });
     }
-
-    this.setState({ request });
-    this.resetPage();
   };
 
   updStatePicture = (pictures, total) => {
     this.setState({ pictures, maxPageCount: Math.ceil(total / this.perPage) });
-  };
-
-  resetPage = () => {
-    this.setState({ page: 1 });
   };
 
   incrementPage = () => {
