@@ -113,32 +113,33 @@ class App extends Component {
     const isBtnShown = pictures.length && page < maxPageCount ? true : false;
 
     return (
-      <>
-        <Container>
-          <Title>
-            <Logo src={logo} alt="logo" width="50px" />
-            Image Finder
-          </Title>
-          <Searchbar onSubmit={handleSubmit} />
+      <Container>
+        <Title>
+          <Logo src={logo} alt="logo" width="50px" />
+          Image Finder
+        </Title>
 
-          {error && <NotFound src={notFound} alt="Images not found!" />}
+        <Searchbar onSubmit={handleSubmit} />
 
-          <ImageGallery
-            request={request}
-            page={page}
-            updStatePicture={updStatePicture}
-            isShownLoading={isShownLoading}
-            handleError={handleError}
-            onModal={onModal}
-          />
-          {ShownModal && (
-            <Modal largePictureSRC={largePictureSRC} closeModal={closeModal} />
-          )}
-          {loading && <LoaderBox loading={loading} />}
-        </Container>
+        {error && <NotFound src={notFound} alt="Images not found!" />}
+
+        <ImageGallery
+          request={request}
+          page={page}
+          updStatePicture={updStatePicture}
+          isShownLoading={isShownLoading}
+          handleError={handleError}
+          onModal={onModal}
+        />
+
+        {ShownModal && (
+          <Modal largePictureSRC={largePictureSRC} closeModal={closeModal} />
+        )}
+
+        {loading && <LoaderBox loading={loading} />}
 
         {isBtnShown && <Button incrementPage={incrementPage} />}
-      </>
+      </Container>
     );
   }
 }
